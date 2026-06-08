@@ -33,7 +33,7 @@ const MENU_ITEMS = [
     name: 'Caramel Macchiato',
     desc: 'Vanilla, caramel, espresso & milk.',
     price: '₱165',
-    image: 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1485808191679-5f86510bd9d4?q=80&w=400&auto=format&fit=crop',
   },
   {
     id: 5,
@@ -76,7 +76,7 @@ export default function MenuScreen() {
         contentContainerStyle={{ paddingBottom: 128 }}
       >
 
-        {/* ── Header ─────────────────────────── */}
+        {/* ── Header ── */}
         <View
           style={{
             flexDirection: 'row',
@@ -100,7 +100,10 @@ export default function MenuScreen() {
           </TouchableOpacity>
 
           <View style={{ flex: 1 }}>
-            <Text style={{ color: '#FFFFFF', fontSize: 34, fontWeight: '700', letterSpacing: -0.5, lineHeight: 38 }}>
+            <Text style={{
+              color: '#FFFFFF', fontSize: 34, fontWeight: '700',
+              letterSpacing: -0.5, lineHeight: 38,
+            }}>
               Menu
             </Text>
             <Text style={{ color: '#737373', fontSize: 13, marginTop: 2 }}>
@@ -123,13 +126,13 @@ export default function MenuScreen() {
           </View>
         </View>
 
-        {/* ── Search bar ──────────────────────── */}
+        {/* ── Search bar ── */}
         <View
           style={{
             height: 52, flexDirection: 'row', alignItems: 'center',
             marginHorizontal: 24, marginBottom: 20,
             backgroundColor: '#111111', borderRadius: 26,
-            borderWidth: 1, borderColor: '#2A1A0D', paddingLeft: 18, paddingRight: 8,
+            borderWidth: 1, borderColor: '#1E1208', paddingLeft: 18, paddingRight: 8,
           }}
         >
           <Feather name="search" size={18} color="#4A4A4A" style={{ marginRight: 12 }} />
@@ -150,7 +153,7 @@ export default function MenuScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* ── Category pills ──────────────────── */}
+        {/* ── Category pills ── */}
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -166,7 +169,7 @@ export default function MenuScreen() {
                 borderRadius: 26,
                 backgroundColor: selectedCategory === idx ? '#D4A24C' : '#111111',
                 borderWidth: 1,
-                borderColor: selectedCategory === idx ? '#D4A24C' : '#2A1A0D',
+                borderColor: selectedCategory === idx ? '#D4A24C' : '#1E1208',
               }}
               activeOpacity={0.8}
             >
@@ -182,19 +185,19 @@ export default function MenuScreen() {
           ))}
         </ScrollView>
 
-        {/* ── Featured card ───────────────────── */}
+        {/* ── Featured card ── */}
         <View
           style={{
             marginHorizontal: 24, marginBottom: 28,
             backgroundColor: '#111111',
             borderRadius: 24, overflow: 'hidden',
             borderWidth: 1, borderColor: 'rgba(212,162,76,0.15)',
-            height: 240,
+            height: 248,
             flexDirection: 'row',
           }}
         >
           {/* Left — text */}
-          <View style={{ flex: 1, padding: 18, justifyContent: 'space-between' }}>
+          <View style={{ flex: 1, padding: 20, justifyContent: 'space-between' }}>
             <View>
               {/* FEATURED badge */}
               <View
@@ -209,26 +212,35 @@ export default function MenuScreen() {
                 }}
               >
                 <Feather name="star" size={9} color="#D4A24C" />
-                <Text style={{ color: '#D4A24C', fontSize: 9, fontWeight: '700', letterSpacing: 1.5, textTransform: 'uppercase' }}>
+                <Text style={{
+                  color: '#D4A24C', fontSize: 9, fontWeight: '700',
+                  letterSpacing: 1.5, textTransform: 'uppercase',
+                }}>
                   Featured
                 </Text>
               </View>
 
-              <Text style={{ color: '#FFFFFF', fontSize: 19, fontWeight: '800', letterSpacing: -0.3, lineHeight: 25, marginBottom: 6 }}>
+              <Text style={{
+                color: '#FFFFFF', fontSize: 20, fontWeight: '800',
+                letterSpacing: -0.3, lineHeight: 26, marginBottom: 8,
+              }}>
                 {'Signature\nCaramel Macchiato'}
               </Text>
 
-              <Text style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11, lineHeight: 16, marginBottom: 8 }} numberOfLines={2}>
+              <Text style={{
+                color: 'rgba(255,255,255,0.5)', fontSize: 11,
+                lineHeight: 16, marginBottom: 10,
+              }} numberOfLines={2}>
                 Smooth espresso, creamy milk, and rich caramel drizzle.
               </Text>
 
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 6 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 8 }}>
                 <Feather name="star" size={11} color="#D4A24C" />
                 <Text style={{ color: '#D4A24C', fontSize: 12, fontWeight: '600' }}>4.8</Text>
                 <Text style={{ color: '#737373', fontSize: 12 }}>(2.3K)</Text>
               </View>
 
-              <Text style={{ color: '#D4A24C', fontSize: 22, fontWeight: '800' }}>₱165</Text>
+              <Text style={{ color: '#D4A24C', fontSize: 24, fontWeight: '800' }}>₱165</Text>
             </View>
 
             {/* Add to Cart */}
@@ -241,7 +253,7 @@ export default function MenuScreen() {
               }}
               activeOpacity={0.85}
             >
-              <Text style={{ color: '#080808', fontWeight: '700', fontSize: 13 }}>Add to Cart</Text>
+              <Text style={{ color: '#1a0e00', fontWeight: '700', fontSize: 13 }}>Add to Cart</Text>
               <View
                 style={{
                   width: 24, height: 24, borderRadius: 12,
@@ -249,15 +261,15 @@ export default function MenuScreen() {
                   alignItems: 'center', justifyContent: 'center',
                 }}
               >
-                <Feather name="plus" size={12} color="#080808" />
+                <Feather name="plus" size={12} color="#1a0e00" />
               </View>
             </TouchableOpacity>
           </View>
 
           {/* Right — image */}
           <Image
-            source={{ uri: 'https://images.unsplash.com/photo-1504630083234-14187a9df0f5?q=80&w=900&auto=format&fit=crop' }}
-            style={{ width: 148, height: 240 }}
+            source={{ uri: 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=600&auto=format&fit=crop' }}
+            style={{ width: 148, height: 248 }}
             resizeMode="cover"
           />
 
@@ -270,13 +282,13 @@ export default function MenuScreen() {
             }}
           >
             <View style={{ width: 18, height: 4, borderRadius: 2, backgroundColor: '#D4A24C' }} />
-            <View style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.35)' }} />
-            <View style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.35)' }} />
-            <View style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.35)' }} />
+            <View style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.3)' }} />
+            <View style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.3)' }} />
+            <View style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.3)' }} />
           </View>
         </View>
 
-        {/* ── Product grid ─────────────────────── */}
+        {/* ── Product grid ── */}
         <View
           style={{
             paddingHorizontal: 24,
@@ -290,22 +302,25 @@ export default function MenuScreen() {
               key={item.id}
               style={{
                 width: '47.5%',
-                height: 112,
+                height: 120,
                 backgroundColor: '#111111',
                 borderRadius: 18, overflow: 'hidden',
-                borderWidth: 1, borderColor: '#2A1A0D',
+                borderWidth: 1, borderColor: '#1E1208',
                 flexDirection: 'row',
               }}
             >
               <Image
                 source={{ uri: item.image }}
-                style={{ width: 86, height: 112 }}
+                style={{ width: 90, height: 120 }}
                 resizeMode="cover"
               />
               <View style={{ flex: 1, padding: 10, justifyContent: 'space-between' }}>
                 <View>
                   <Text
-                    style={{ color: '#FFFFFF', fontSize: 13, fontWeight: '700', marginBottom: 3, lineHeight: 17 }}
+                    style={{
+                      color: '#FFFFFF', fontSize: 13, fontWeight: '700',
+                      marginBottom: 3, lineHeight: 17,
+                    }}
                     numberOfLines={1}
                   >
                     {item.name}
@@ -318,7 +333,7 @@ export default function MenuScreen() {
                   </Text>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <Text style={{ color: '#D4A24C', fontSize: 14, fontWeight: '700' }}>{item.price}</Text>
+                  <Text style={{ color: '#D4A24C', fontSize: 13, fontWeight: '700' }}>{item.price}</Text>
                   <TouchableOpacity
                     style={{
                       width: 28, height: 28, borderRadius: 14,
@@ -327,7 +342,7 @@ export default function MenuScreen() {
                     }}
                     activeOpacity={0.8}
                   >
-                    <Feather name="plus" size={14} color="#080808" />
+                    <Feather name="plus" size={14} color="#1a0e00" />
                   </TouchableOpacity>
                 </View>
               </View>

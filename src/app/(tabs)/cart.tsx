@@ -10,7 +10,7 @@ const INITIAL_CART: CartItem[] = [
   {
     id: 1, name: 'Caramel Macchiato', desc: 'Vanilla, caramel, espresso & milk',
     price: 165, qty: 2,
-    image: 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1485808191679-5f86510bd9d4?q=80&w=400&auto=format&fit=crop',
   },
   {
     id: 2, name: 'Iced Spanish Latte', desc: 'Espresso with sweet milk',
@@ -63,7 +63,7 @@ export default function CartScreen() {
       <StatusBar style="light" />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 148 }}>
 
-        {/* ── Header ─────────────────────────── */}
+        {/* ── Header ── */}
         <View
           style={{
             flexDirection: 'row', alignItems: 'center',
@@ -82,7 +82,10 @@ export default function CartScreen() {
             <Feather name="chevron-left" size={22} color="#D4A24C" />
           </TouchableOpacity>
           <View style={{ flex: 1 }}>
-            <Text style={{ color: '#FFFFFF', fontSize: 34, fontWeight: '700', letterSpacing: -0.5, lineHeight: 38 }}>
+            <Text style={{
+              color: '#FFFFFF', fontSize: 34, fontWeight: '700',
+              letterSpacing: -0.5, lineHeight: 38,
+            }}>
               My Cart
             </Text>
             <Text style={{ color: '#737373', fontSize: 13, marginTop: 2 }}>
@@ -103,7 +106,7 @@ export default function CartScreen() {
           </View>
         </View>
 
-        {/* ── Cart items ──────────────────────── */}
+        {/* ── Cart items ── */}
         <View style={{ paddingHorizontal: 24, gap: 14, marginBottom: 24 }}>
           {cart.map(item => (
             <View
@@ -111,7 +114,7 @@ export default function CartScreen() {
               style={{
                 flexDirection: 'row', height: 128,
                 backgroundColor: '#111111', borderRadius: 20, overflow: 'hidden',
-                borderWidth: 1, borderColor: '#2A1A0D',
+                borderWidth: 1, borderColor: '#1E1208',
               }}
             >
               <Image source={{ uri: item.image }} style={{ width: 108, height: 128 }} resizeMode="cover" />
@@ -180,14 +183,14 @@ export default function CartScreen() {
           ))}
         </View>
 
-        {/* ── Promo + Delivery (2 col) ──────────── */}
+        {/* ── Promo + Delivery ── */}
         <View style={{ paddingHorizontal: 24, flexDirection: 'row', gap: 12, marginBottom: 20 }}>
 
           {/* Promo Code */}
           <View
             style={{
               flex: 1, backgroundColor: '#111111',
-              borderRadius: 20, borderWidth: 1, borderColor: '#2A1A0D', padding: 14,
+              borderRadius: 20, borderWidth: 1, borderColor: '#1E1208', padding: 14,
             }}
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 7, marginBottom: 14 }}>
@@ -216,7 +219,7 @@ export default function CartScreen() {
               }}
               activeOpacity={0.85}
             >
-              <Text style={{ color: '#080808', fontWeight: '700', fontSize: 14 }}>Apply</Text>
+              <Text style={{ color: '#1a0e00', fontWeight: '700', fontSize: 14 }}>Apply</Text>
             </TouchableOpacity>
           </View>
 
@@ -224,7 +227,7 @@ export default function CartScreen() {
           <View
             style={{
               flex: 1.1, backgroundColor: '#111111',
-              borderRadius: 20, borderWidth: 1, borderColor: '#2A1A0D', padding: 14,
+              borderRadius: 20, borderWidth: 1, borderColor: '#1E1208', padding: 14,
             }}
           >
             {/* Address */}
@@ -278,21 +281,21 @@ export default function CartScreen() {
                   backgroundColor: '#D4A24C', alignItems: 'center', justifyContent: 'center',
                 }}
               >
-                <Feather name="check" size={12} color="#080808" />
+                <Feather name="check" size={12} color="#1a0e00" />
               </View>
             </View>
           </View>
 
         </View>
 
-        {/* ── You May Also Like + Order Summary ─── */}
+        {/* ── You May Also Like + Order Summary ── */}
         <View style={{ paddingHorizontal: 24, flexDirection: 'row', gap: 12, marginBottom: 24 }}>
 
           {/* You May Also Like */}
           <View
             style={{
               flex: 1.35, backgroundColor: '#111111',
-              borderRadius: 20, borderWidth: 1, borderColor: '#2A1A0D', padding: 14,
+              borderRadius: 20, borderWidth: 1, borderColor: '#1E1208', padding: 14,
             }}
           >
             <View
@@ -327,11 +330,14 @@ export default function CartScreen() {
                       }}
                       activeOpacity={0.8}
                     >
-                      <Feather name="plus" size={10} color="#080808" />
+                      <Feather name="plus" size={10} color="#1a0e00" />
                     </TouchableOpacity>
                   </View>
                   <Text
-                    style={{ color: '#FFFFFF', fontSize: 9, fontWeight: '600', textAlign: 'center', lineHeight: 13, marginBottom: 2 }}
+                    style={{
+                      color: '#FFFFFF', fontSize: 9, fontWeight: '600',
+                      textAlign: 'center', lineHeight: 13, marginBottom: 2,
+                    }}
                     numberOfLines={2}
                   >
                     {s.name}
@@ -346,7 +352,7 @@ export default function CartScreen() {
           <View
             style={{
               flex: 1, backgroundColor: '#111111',
-              borderRadius: 20, borderWidth: 1, borderColor: '#2A1A0D', padding: 14,
+              borderRadius: 20, borderWidth: 1, borderColor: '#1E1208', padding: 14,
             }}
           >
             <View
@@ -384,7 +390,7 @@ export default function CartScreen() {
 
         </View>
 
-        {/* ── Checkout CTA ─────────────────────── */}
+        {/* ── Checkout CTA ── */}
         <View
           style={{
             marginHorizontal: 24,
@@ -408,12 +414,12 @@ export default function CartScreen() {
               backgroundColor: '#D4A24C',
               flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10,
               shadowColor: '#D4A24C', shadowOffset: { width: 0, height: 6 },
-              shadowOpacity: 0.35, shadowRadius: 14, elevation: 10,
+              shadowOpacity: 0.4, shadowRadius: 14, elevation: 10,
             }}
             activeOpacity={0.85}
           >
-            <Text style={{ color: '#080808', fontWeight: '700', fontSize: 15 }}>Proceed to Checkout</Text>
-            <Feather name="arrow-right" size={18} color="#080808" />
+            <Text style={{ color: '#1a0e00', fontWeight: '800', fontSize: 15 }}>Proceed to Checkout</Text>
+            <Feather name="arrow-right" size={18} color="#1a0e00" />
           </TouchableOpacity>
         </View>
 
