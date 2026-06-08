@@ -202,14 +202,22 @@ export default function HomeScreen() {
             <TouchableOpacity
               style={{
                 alignSelf: 'flex-start',
-                height: 40, paddingHorizontal: 20,
-                borderRadius: 20, backgroundColor: '#D4A24C',
-                flexDirection: 'row', alignItems: 'center', gap: 8,
+                height: 42, paddingLeft: 18, paddingRight: 8,
+                borderRadius: 21, backgroundColor: '#D4A24C',
+                flexDirection: 'row', alignItems: 'center', gap: 10,
               }}
               activeOpacity={0.85}
             >
               <Text style={{ color: '#080808', fontWeight: '700', fontSize: 14 }}>Order Now</Text>
-              <Feather name="arrow-right" size={16} color="#080808" />
+              <View
+                style={{
+                  width: 28, height: 28, borderRadius: 14,
+                  borderWidth: 1.5, borderColor: 'rgba(8,8,8,0.25)',
+                  alignItems: 'center', justifyContent: 'center',
+                }}
+              >
+                <Feather name="arrow-right" size={14} color="#080808" />
+              </View>
             </TouchableOpacity>
           </View>
 
