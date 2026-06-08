@@ -16,13 +16,12 @@ export default function RegisterScreen() {
   const border = (f: string) =>
     focused === f ? 'rgba(212,162,76,0.55)' : 'rgba(212,162,76,0.14)';
   const icon = (f: string) =>
-    focused === f ? '#D4A24C' : 'rgba(212,162,76,0.55)';
+    focused === f ? '#D4A24C' : 'rgba(212,162,76,0.5)';
 
   return (
     <View style={{ flex: 1, backgroundColor: '#080808' }}>
       <StatusBar style="light" />
 
-      {/* Full-screen background */}
       <Image
         source={{ uri: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=1200&auto=format&fit=crop' }}
         style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
@@ -31,7 +30,8 @@ export default function RegisterScreen() {
       <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(4,4,4,0.65)' }} />
 
       <SafeAreaView style={{ flex: 1 }}>
-        {/* Back button — absolute */}
+
+        {/* Back button */}
         <TouchableOpacity
           onPress={() => router.back()}
           style={{
@@ -45,13 +45,12 @@ export default function RegisterScreen() {
           <Feather name="chevron-left" size={22} color="#D4A24C" />
         </TouchableOpacity>
 
-        {/* Register has more content — full page scroll */}
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{ paddingBottom: 40 }}
         >
-          {/* Branding — fixed height ~28% of screen to ensure proportional layout */}
+          {/* Branding */}
           <View
             style={{
               height: Math.max(SCREEN_HEIGHT * 0.28, 200),
@@ -71,10 +70,11 @@ export default function RegisterScreen() {
                 shadowOpacity: 0.3, shadowRadius: 16, elevation: 8,
               }}
             >
-              <Feather name="coffee" size={30} color="#D4A24C" />
+              <Text style={{ fontSize: 9, color: '#D4A24C', marginBottom: 2 }}>✦</Text>
+              <Feather name="coffee" size={28} color="#D4A24C" />
             </View>
 
-            <Text style={{ color: '#D4A24C', fontSize: 32, fontWeight: '200', letterSpacing: 11, marginBottom: 8 }}>
+            <Text style={{ color: '#D4A24C', fontSize: 32, fontWeight: '200', letterSpacing: 11, marginBottom: 8, marginRight: -11 }}>
               CAFINITY
             </Text>
 
@@ -93,24 +93,27 @@ export default function RegisterScreen() {
           <View style={{ paddingHorizontal: 24, paddingBottom: 8 }}>
             <View style={{ marginTop: 36 }}>
 
-              {/* Card body — rendered first */}
+              {/* Card */}
               <View
                 style={{
                   backgroundColor: 'rgba(14,14,14,0.97)',
                   borderRadius: 28,
                   borderWidth: 1, borderColor: 'rgba(212,162,76,0.12)',
-                  paddingTop: 52, paddingHorizontal: 22, paddingBottom: 24,
+                  paddingTop: 56, paddingHorizontal: 22, paddingBottom: 28,
                 }}
               >
-                <Text style={{ color: '#FFFFFF', fontSize: 26, fontWeight: '700', textAlign: 'center', marginBottom: 6 }}>
+                <Text style={{
+                  color: '#FFFFFF', fontSize: 28, fontWeight: '700',
+                  textAlign: 'center', marginBottom: 6, letterSpacing: -0.3,
+                }}>
                   Create Your Account
                 </Text>
-                <Text style={{ color: '#737373', fontSize: 14, textAlign: 'center', marginBottom: 12, lineHeight: 20 }}>
+                <Text style={{ color: '#737373', fontSize: 14, textAlign: 'center', marginBottom: 14, lineHeight: 20 }}>
                   Join Cafinity and brew better.
                 </Text>
 
                 {/* Ornament divider */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 22 }}>
                   <View style={{ flex: 1, height: 0.5, backgroundColor: 'rgba(212,162,76,0.35)' }} />
                   <Text style={{ color: '#D4A24C', fontSize: 10, marginHorizontal: 10 }}>✦</Text>
                   <View style={{ flex: 1, height: 0.5, backgroundColor: 'rgba(212,162,76,0.35)' }} />
@@ -196,13 +199,13 @@ export default function RegisterScreen() {
                   </TouchableOpacity>
                 </View>
 
-                {/* Confirm password */}
+                {/* Confirm Password */}
                 <View
                   style={{
                     height: 56, flexDirection: 'row', alignItems: 'center',
                     backgroundColor: '#171717', borderRadius: 16,
                     borderWidth: 1, borderColor: border('confirm'),
-                    paddingHorizontal: 16, marginBottom: 18,
+                    paddingHorizontal: 16, marginBottom: 20,
                   }}
                 >
                   <Feather name="lock" size={18} color={icon('confirm')} style={{ marginRight: 14 }} />
@@ -223,7 +226,7 @@ export default function RegisterScreen() {
                 <TouchableOpacity
                   onPress={() => setAgreed(!agreed)}
                   activeOpacity={0.8}
-                  style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12, marginBottom: 20 }}
+                  style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12, marginBottom: 22 }}
                 >
                   <View
                     style={{
@@ -245,55 +248,56 @@ export default function RegisterScreen() {
                   </Text>
                 </TouchableOpacity>
 
-                {/* Sign Up button */}
+                {/* Sign Up */}
                 <TouchableOpacity
                   style={{
                     height: 58, backgroundColor: '#D4A24C', borderRadius: 16,
                     flexDirection: 'row', alignItems: 'center', paddingHorizontal: 22,
-                    marginBottom: 18,
+                    marginBottom: 20,
                     shadowColor: '#D4A24C', shadowOffset: { width: 0, height: 6 },
-                    shadowOpacity: 0.35, shadowRadius: 14, elevation: 10,
+                    shadowOpacity: 0.4, shadowRadius: 16, elevation: 10,
                   }}
                   activeOpacity={0.85}
                   onPress={() => router.replace('/(tabs)')}
                 >
-                  <Text style={{ flex: 1, color: '#080808', fontWeight: '700', fontSize: 16 }}>Sign Up</Text>
-                  <Feather name="arrow-right" size={20} color="#080808" />
+                  <Text style={{ flex: 1, color: '#1a0e00', fontWeight: '800', fontSize: 16 }}>Sign Up</Text>
+                  <Feather name="arrow-right" size={20} color="#1a0e00" />
                 </TouchableOpacity>
 
-                {/* or sign up with */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
-                  <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(212,162,76,0.28)' }} />
+                {/* OR divider */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+                  <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(255,255,255,0.07)' }} />
                   <Text style={{ color: '#737373', fontSize: 12, marginHorizontal: 14 }}>or sign up with</Text>
-                  <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(212,162,76,0.28)' }} />
+                  <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(255,255,255,0.07)' }} />
                 </View>
 
-                {/* Social — side by side */}
-                <View style={{ flexDirection: 'row', gap: 12, marginBottom: 20 }}>
+                {/* Social */}
+                <View style={{ flexDirection: 'row', gap: 12, marginBottom: 22 }}>
                   <TouchableOpacity
                     style={{
-                      flex: 1, height: 52, backgroundColor: '#171717', borderRadius: 14,
+                      flex: 1, height: 54, backgroundColor: '#171717', borderRadius: 14,
                       borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)',
                       flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
                     }}
                     activeOpacity={0.8}
                   >
                     <Ionicons name="logo-google" size={18} color="#DB4437" />
-                    <Text style={{ color: '#A3A3A3', fontSize: 12, fontWeight: '500' }}>Continue with Google</Text>
+                    <Text style={{ color: '#A3A3A3', fontSize: 13, fontWeight: '500' }}>Google</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={{
-                      flex: 1, height: 52, backgroundColor: '#171717', borderRadius: 14,
+                      flex: 1, height: 54, backgroundColor: '#171717', borderRadius: 14,
                       borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)',
                       flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
                     }}
                     activeOpacity={0.8}
                   >
                     <Ionicons name="logo-apple" size={18} color="#FFFFFF" />
-                    <Text style={{ color: '#A3A3A3', fontSize: 12, fontWeight: '500' }}>Continue with Apple</Text>
+                    <Text style={{ color: '#A3A3A3', fontSize: 13, fontWeight: '500' }}>Apple</Text>
                   </TouchableOpacity>
                 </View>
 
+                {/* Log in link */}
                 <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => router.back()}>
                   <Text style={{ color: '#737373', fontSize: 14 }}>
                     {'Already have an account? '}
@@ -302,7 +306,7 @@ export default function RegisterScreen() {
                 </TouchableOpacity>
               </View>
 
-              {/* Badge — rendered AFTER card, draws on top */}
+              {/* Floating badge */}
               <View style={{ position: 'absolute', top: -36, left: 0, right: 0, alignItems: 'center' }}>
                 <View
                   style={{
@@ -311,10 +315,11 @@ export default function RegisterScreen() {
                     borderWidth: 2, borderColor: '#D4A24C',
                     alignItems: 'center', justifyContent: 'center',
                     shadowColor: '#D4A24C', shadowOffset: { width: 0, height: 4 },
-                    shadowOpacity: 0.35, shadowRadius: 12, elevation: 12,
+                    shadowOpacity: 0.4, shadowRadius: 14, elevation: 14,
                   }}
                 >
-                  <Feather name="coffee" size={30} color="#D4A24C" />
+                  <Text style={{ fontSize: 9, color: '#D4A24C', marginBottom: 2 }}>✦</Text>
+                  <Feather name="coffee" size={28} color="#D4A24C" />
                 </View>
               </View>
 

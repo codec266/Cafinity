@@ -16,20 +16,22 @@ export function CustomTabBar({ state, navigation }: { state: any; navigation: an
     <View
       style={{
         position: 'absolute',
-        bottom: Math.max(insets.bottom, 8) + 12,
-        left: 28,
-        right: 28,
-        height: 76,
-        backgroundColor: 'rgba(12,12,12,0.98)',
-        borderRadius: 38,
+        bottom: Math.max(insets.bottom, 8) + 16,
+        left: 24,
+        right: 24,
+        height: 72,
+        backgroundColor: 'rgba(10,10,10,0.97)',
+        borderRadius: 36,
         borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.07)',
+        borderColor: 'rgba(212,162,76,0.18)',
         flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 8,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 12 },
-        shadowOpacity: 0.65,
-        shadowRadius: 28,
-        elevation: 28,
+        shadowOffset: { width: 0, height: 16 },
+        shadowOpacity: 0.7,
+        shadowRadius: 32,
+        elevation: 32,
       }}
     >
       {state.routes.map((route: any, index: number) => {
@@ -43,14 +45,28 @@ export function CustomTabBar({ state, navigation }: { state: any; navigation: an
               if (!isFocused) navigation.navigate(route.name);
             }}
             activeOpacity={0.7}
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 5 }}
+            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
           >
-            {/* Icon wrapper — relative so badge can overlay */}
-            <View style={{ position: 'relative' }}>
+            {/* Active pill background */}
+            {isFocused && (
+              <View
+                style={{
+                  position: 'absolute',
+                  width: 64, height: 52,
+                  borderRadius: 26,
+                  backgroundColor: 'rgba(212,162,76,0.12)',
+                  borderWidth: 1,
+                  borderColor: 'rgba(212,162,76,0.22)',
+                }}
+              />
+            )}
+
+            {/* Icon + badge */}
+            <View style={{ position: 'relative', marginBottom: 4 }}>
               <Feather
                 name={tab.icon}
                 size={22}
-                color={isFocused ? '#D4A24C' : '#3A3A3A'}
+                color={isFocused ? '#D4A24C' : '#525252'}
               />
               {tab.badge !== undefined && (
                 <View
@@ -58,12 +74,14 @@ export function CustomTabBar({ state, navigation }: { state: any; navigation: an
                     position: 'absolute', top: -6, right: -10,
                     minWidth: 16, height: 16, borderRadius: 8,
                     backgroundColor: '#F59E0B',
-                    borderWidth: 1.5, borderColor: 'rgba(12,12,12,0.98)',
+                    borderWidth: 1.5, borderColor: 'rgba(10,10,10,0.97)',
                     alignItems: 'center', justifyContent: 'center',
                     paddingHorizontal: 3,
                   }}
                 >
-                  <Text style={{ color: '#080808', fontSize: 9, fontWeight: '800' }}>{tab.badge}</Text>
+                  <Text style={{ color: '#1a0e00', fontSize: 9, fontWeight: '800' }}>
+                    {tab.badge}
+                  </Text>
                 </View>
               )}
             </View>
@@ -71,8 +89,9 @@ export function CustomTabBar({ state, navigation }: { state: any; navigation: an
             <Text
               style={{
                 fontSize: 10,
-                fontWeight: isFocused ? '600' : '400',
-                color: isFocused ? '#D4A24C' : '#3A3A3A',
+                fontWeight: isFocused ? '700' : '400',
+                color: isFocused ? '#D4A24C' : '#525252',
+                letterSpacing: isFocused ? 0.2 : 0,
               }}
             >
               {tab.label}
