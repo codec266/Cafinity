@@ -2,10 +2,10 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const TABS: { icon: any; label: string }[] = [
+const TABS: { icon: any; label: string; badge?: number }[] = [
   { icon: 'home', label: 'Home' },
-  { icon: 'grid', label: 'Menu' },
-  { icon: 'shopping-bag', label: 'Cart' },
+  { icon: 'coffee', label: 'Menu' },
+  { icon: 'shopping-cart', label: 'Cart', badge: 3 },
   { icon: 'user', label: 'Profile' },
 ];
 
@@ -45,11 +45,29 @@ export function CustomTabBar({ state, navigation }: { state: any; navigation: an
             activeOpacity={0.7}
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 5 }}
           >
-            <Feather
-              name={tab.icon}
-              size={22}
-              color={isFocused ? '#D4A24C' : '#3A3A3A'}
-            />
+            {/* Icon wrapper — relative so badge can overlay */}
+            <View style={{ position: 'relative' }}>
+              <Feather
+                name={tab.icon}
+                size={22}
+                color={isFocused ? '#D4A24C' : '#3A3A3A'}
+              />
+              {tab.badge !== undefined && (
+                <View
+                  style={{
+                    position: 'absolute', top: -6, right: -10,
+                    minWidth: 16, height: 16, borderRadius: 8,
+                    backgroundColor: '#F59E0B',
+                    borderWidth: 1.5, borderColor: 'rgba(12,12,12,0.98)',
+                    alignItems: 'center', justifyContent: 'center',
+                    paddingHorizontal: 3,
+                  }}
+                >
+                  <Text style={{ color: '#080808', fontSize: 9, fontWeight: '800' }}>{tab.badge}</Text>
+                </View>
+              )}
+            </View>
+
             <Text
               style={{
                 fontSize: 10,
