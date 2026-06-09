@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import { View, Text, TextInput, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
+import { supabase } from '../../lib/supabase';
 
 const CATEGORIES = [
   { label: 'All', icon: 'coffee' as const },
@@ -47,6 +49,24 @@ const POPULAR_ITEMS = [
 ];
 
 export default function HomeScreen() {
+  const [firstName, setFirstName] = useState('');
+
+  useEffect(() => {
+    async function loadFirstName() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data } = await supabase
+        .from('users')
+        .select('first_name')
+        .eq('id', user.id)
+        .single();
+
+      if (data?.first_name) setFirstName(data.first_name);
+    }
+    loadFirstName();
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#080808' }} edges={['top']}>
       <StatusBar style="light" />
@@ -65,7 +85,7 @@ export default function HomeScreen() {
           <View>
             <Text style={{ color: '#737373', fontSize: 14, marginBottom: 4 }}>Good Morning,</Text>
             <Text style={{ color: '#FFFFFF', fontSize: 30, fontWeight: '700', letterSpacing: -0.5 }}>
-              Kyle ☕
+              {firstName || 'Guest'} ☕
             </Text>
           </View>
 
