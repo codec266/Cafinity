@@ -1,3 +1,5 @@
+import { Alert } from 'react-native';
+import { supabase } from '../../lib/supabase';
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,15 +10,70 @@ import { StatusBar } from 'expo-status-bar';
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 export default function RegisterScreen() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [focused, setFocused] = useState<string | null>(null);
   const [agreed, setAgreed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  
 
   const border = (f: string) =>
     focused === f ? 'rgba(212,162,76,0.55)' : 'rgba(212,162,76,0.14)';
   const icon = (f: string) =>
     focused === f ? '#D4A24C' : 'rgba(212,162,76,0.5)';
+
+  async function handleRegister() {
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match!');
+      return;
+    }
+    if (!agreed) {
+      Alert.alert('Error', 'Please agree to the Terms of Service.');
+      return;
+    }
+
+    setLoading(true);
+    
+    // 1. Create the secure user in Supabase Auth
+    const { data, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    if (signUpError) {
+      Alert.alert('Registration Failed', signUpError.message);
+      setLoading(false);
+      return;
+    }
+
+    // 2. Insert the extra profile data into our public 'users' table
+    if (data.user) {
+      const { error: profileError } = await supabase
+        .from('users')
+        .insert([
+          {
+            id: data.user.id, // This links our table to the Auth system
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            role: 'Customer'
+          }
+        ]);
+
+      if (profileError) {
+        Alert.alert('Profile Error', profileError.message);
+      } else {
+        Alert.alert('Success', 'Account created successfully!');
+        router.replace('/(tabs)');
+      }
+    }
+    setLoading(false);
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: '#080808' }}>
@@ -135,6 +192,8 @@ export default function RegisterScreen() {
                       onFocus={() => setFocused('first')}
                       onBlur={() => setFocused(null)}
                       style={{ flex: 1, color: '#FFFFFF', fontSize: 14 }}
+                      value={firstName}
+                      onChangeText={setFirstName}
                     />
                   </View>
                   <View
@@ -151,6 +210,8 @@ export default function RegisterScreen() {
                       onFocus={() => setFocused('last')}
                       onBlur={() => setFocused(null)}
                       style={{ flex: 1, color: '#FFFFFF', fontSize: 14 }}
+                      value={lastName}
+                      onChangeText={setLastName}
                     />
                   </View>
                 </View>
@@ -173,6 +234,8 @@ export default function RegisterScreen() {
                     onFocus={() => setFocused('email')}
                     onBlur={() => setFocused(null)}
                     style={{ flex: 1, color: '#FFFFFF', fontSize: 15 }}
+                    value={email}
+                    onChangeText={setEmail}
                   />
                 </View>
 
@@ -193,6 +256,8 @@ export default function RegisterScreen() {
                     onFocus={() => setFocused('password')}
                     onBlur={() => setFocused(null)}
                     style={{ flex: 1, color: '#FFFFFF', fontSize: 15 }}
+                    value={password}
+                    onChangeText={setPassword}
                   />
                   <TouchableOpacity onPress={() => setShowPassword(v => !v)}>
                     <Feather name={showPassword ? 'eye' : 'eye-off'} size={18} color="#4A4A4A" />
@@ -216,6 +281,8 @@ export default function RegisterScreen() {
                     onFocus={() => setFocused('confirm')}
                     onBlur={() => setFocused(null)}
                     style={{ flex: 1, color: '#FFFFFF', fontSize: 15 }}
+                    value={confirmPassword}
+                    onChangeText={setConfirmPassword}
                   />
                   <TouchableOpacity onPress={() => setShowConfirm(v => !v)}>
                     <Feather name={showConfirm ? 'eye' : 'eye-off'} size={18} color="#4A4A4A" />
@@ -250,20 +317,23 @@ export default function RegisterScreen() {
 
                 {/* Sign Up */}
                 <TouchableOpacity
-                  style={{
-                    height: 58, backgroundColor: '#D4A24C', borderRadius: 16,
-                    flexDirection: 'row', alignItems: 'center', paddingHorizontal: 22,
-                    marginBottom: 20,
-                    shadowColor: '#D4A24C', shadowOffset: { width: 0, height: 6 },
-                    shadowOpacity: 0.4, shadowRadius: 16, elevation: 10,
-                  }}
+                  style={[
+                    {
+                      height: 58, backgroundColor: '#D4A24C', borderRadius: 16,
+                      flexDirection: 'row', alignItems: 'center', paddingHorizontal: 22,
+                      marginBottom: 20,
+                      shadowColor: '#D4A24C', shadowOffset: { width: 0, height: 6 },
+                      shadowOpacity: 0.4, shadowRadius: 16, elevation: 10,
+                    },
+                    { opacity: loading ? 0.7 : 1 }
+                  ]}
                   activeOpacity={0.85}
-                  onPress={() => router.replace('/(tabs)')}
+                  onPress={handleRegister} 
+                  disabled={loading}
                 >
                   <Text style={{ flex: 1, color: '#1a0e00', fontWeight: '800', fontSize: 16 }}>Sign Up</Text>
                   <Feather name="arrow-right" size={20} color="#1a0e00" />
                 </TouchableOpacity>
-
                 {/* OR divider */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
                   <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(255,255,255,0.07)' }} />
