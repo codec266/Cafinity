@@ -1,3 +1,5 @@
+import { Alert } from 'react-native';
+import { supabase } from '../../lib/supabase';
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,9 +8,33 @@ import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
 export default function LoginScreen() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  
+
+  async function handleLogin() {
+    if (!email || !password) {
+      Alert.alert('Hold up', 'Please enter both email and password.');
+      return;
+    }
+
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      Alert.alert('Login Failed', error.message);
+    } else {
+      router.replace('/(tabs)');
+    }
+    setLoading(false);
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: '#080808' }}>
@@ -109,6 +135,8 @@ export default function LoginScreen() {
                 >
                   <Feather name="mail" size={18} color={emailFocused ? '#D4A24C' : 'rgba(212,162,76,0.5)'} style={{ marginRight: 14 }} />
                   <TextInput
+                    value={email}
+                    onChangeText={setEmail}
                     placeholder="Email Address"
                     placeholderTextColor="#4A4A4A"
                     keyboardType="email-address"
@@ -137,6 +165,8 @@ export default function LoginScreen() {
                     onFocus={() => setPasswordFocused(true)}
                     onBlur={() => setPasswordFocused(false)}
                     style={{ flex: 1, color: '#FFFFFF', fontSize: 15 }}
+                    value={password}
+                    onChangeText={setPassword}
                   />
                   <TouchableOpacity onPress={() => setShowPassword(v => !v)} style={{ paddingLeft: 8 }}>
                     <Feather name={showPassword ? 'eye' : 'eye-off'} size={18} color="#4A4A4A" />
@@ -157,7 +187,8 @@ export default function LoginScreen() {
                     shadowOpacity: 0.4, shadowRadius: 16, elevation: 10,
                   }}
                   activeOpacity={0.85}
-                  onPress={() => router.replace('/(tabs)')}
+                  onPress={handleLogin}
+                  disabled={loading}
                 >
                   <Text style={{ color: '#1a0e00', fontWeight: '800', fontSize: 16 }}>Log In</Text>
                 </TouchableOpacity>
