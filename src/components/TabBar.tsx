@@ -1,25 +1,20 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useCartStore } from '../store/cartStore'; // Ensure this path matches your folder structure
+import { useCartStore } from '../store/cartStore'; 
 
 export function CustomTabBar({ state, navigation }: { state: any; navigation: any }) {
   const insets = useSafeAreaInsets();
 
-  // 1. Hook into the global cart store
   const cart = useCartStore((state) => state.cart);
-
-  // 2. Calculate the total quantity of all items combined
   const cartItemCount = cart.reduce((total, item) => total + item.qty, 0);
 
-  // 3. Define TABS inside the component so it can react to the state
   const TABS: { icon: any; label: string; badge?: number }[] = [
     { icon: 'home', label: 'Home' },
     { icon: 'coffee', label: 'Menu' },
     { 
       icon: 'shopping-cart', 
       label: 'Cart', 
-      // Only attach a badge number if the cart isn't empty
       badge: cartItemCount > 0 ? cartItemCount : undefined 
     },
     { icon: 'user', label: 'Profile' },
@@ -28,23 +23,15 @@ export function CustomTabBar({ state, navigation }: { state: any; navigation: an
   return (
     <View
       style={{
-        position: 'absolute',
-        bottom: Math.max(insets.bottom, 8) + 16,
-        left: 24,
-        right: 24,
-        height: 72,
-        backgroundColor: 'rgba(10,10,10,0.97)',
-        borderRadius: 36,
-        borderWidth: 1,
-        borderColor: 'rgba(212,162,76,0.18)',
+        backgroundColor: '#0A0A0A', 
+        borderTopWidth: 1,
+        borderTopColor: '#1E1208', 
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 8,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 16 },
-        shadowOpacity: 0.7,
-        shadowRadius: 32,
-        elevation: 32,
+        // Increased padding to make the tab bar comfortably taller
+        paddingTop: 18, 
+        paddingBottom: Math.max(insets.bottom + 8, 24), 
       }}
     >
       {state.routes.map((route: any, index: number) => {
@@ -60,34 +47,20 @@ export function CustomTabBar({ state, navigation }: { state: any; navigation: an
             activeOpacity={0.7}
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
           >
-            {/* Active pill background */}
-            {isFocused && (
-              <View
-                style={{
-                  position: 'absolute',
-                  width: 64, height: 52,
-                  borderRadius: 26,
-                  backgroundColor: 'rgba(212,162,76,0.12)',
-                  borderWidth: 1,
-                  borderColor: 'rgba(212,162,76,0.22)',
-                }}
-              />
-            )}
-
             {/* Icon + badge */}
-            <View style={{ position: 'relative', marginBottom: 4 }}>
+            <View style={{ position: 'relative', marginBottom: 6 }}>
               <Feather
                 name={tab.icon}
-                size={22}
+                size={24} // Slightly bumped icon size to match the taller bar
                 color={isFocused ? '#D4A24C' : '#525252'}
               />
               {tab.badge !== undefined && (
                 <View
                   style={{
-                    position: 'absolute', top: -6, right: -10,
+                    position: 'absolute', top: -6, right: -12,
                     minWidth: 16, height: 16, borderRadius: 8,
                     backgroundColor: '#F59E0B',
-                    borderWidth: 1.5, borderColor: 'rgba(10,10,10,0.97)',
+                    borderWidth: 1.5, borderColor: '#0A0A0A',
                     alignItems: 'center', justifyContent: 'center',
                     paddingHorizontal: 3,
                   }}
@@ -102,9 +75,9 @@ export function CustomTabBar({ state, navigation }: { state: any; navigation: an
             <Text
               style={{
                 fontSize: 10,
-                fontWeight: isFocused ? '700' : '400',
+                fontWeight: isFocused ? '700' : '500',
                 color: isFocused ? '#D4A24C' : '#525252',
-                letterSpacing: isFocused ? 0.2 : 0,
+                letterSpacing: isFocused ? 0.3 : 0,
               }}
             >
               {tab.label}

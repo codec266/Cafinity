@@ -121,6 +121,7 @@ export default function CartScreen() {
               </View>
 
               <TouchableOpacity
+                onPress={() => router.push('/checkout')} 
                 style={{
                   height: 56, borderRadius: 16, backgroundColor: '#D4A24C',
                   flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10,
