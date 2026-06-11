@@ -1,16 +1,29 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
-const TABS: { icon: any; label: string; badge?: number }[] = [
-  { icon: 'home', label: 'Home' },
-  { icon: 'coffee', label: 'Menu' },
-  { icon: 'shopping-cart', label: 'Cart', badge: 3 },
-  { icon: 'user', label: 'Profile' },
-];
+import { useCartStore } from '../store/cartStore'; // Ensure this path matches your folder structure
 
 export function CustomTabBar({ state, navigation }: { state: any; navigation: any }) {
   const insets = useSafeAreaInsets();
+
+  // 1. Hook into the global cart store
+  const cart = useCartStore((state) => state.cart);
+
+  // 2. Calculate the total quantity of all items combined
+  const cartItemCount = cart.reduce((total, item) => total + item.qty, 0);
+
+  // 3. Define TABS inside the component so it can react to the state
+  const TABS: { icon: any; label: string; badge?: number }[] = [
+    { icon: 'home', label: 'Home' },
+    { icon: 'coffee', label: 'Menu' },
+    { 
+      icon: 'shopping-cart', 
+      label: 'Cart', 
+      // Only attach a badge number if the cart isn't empty
+      badge: cartItemCount > 0 ? cartItemCount : undefined 
+    },
+    { icon: 'user', label: 'Profile' },
+  ];
 
   return (
     <View
